@@ -118,3 +118,6 @@ fi
 
 # setup NVM
 source ~/.nvm/nvm.sh
+
+#setup Zoxide
+export PATH="~/.local/bin:$PATH"
