@@ -121,3 +121,15 @@ source ~/.nvm/nvm.sh
 
 #setup Zoxide
 export PATH="~/.local/bin:$PATH"
+eval "$(zoxide init bash)"
+
+#setup Yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+export EDITOR=nvim
+. "$HOME/.cargo/env"
