@@ -1,45 +1,52 @@
-return {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            {
-                "folke/lazydev.nvim",
-                ft = "lua", -- only load on lua files
-                opts = {
-                    library = {
-                        -- See the configuration section for more details
-                        -- Load luvit types when the `vim.uv` word is found
-                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-                    },
-                },
+return
+{
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+        {
+            "mason-org/mason.nvim",
+            opts = {
+                automatic_enable = true
             }
         },
-        config = function()
-            require("mason").setup()
-            local mason_lspconfig = require("mason-lspconfig")
+        "neovim/nvim-lspconfig",
+        {
+            "folke/lazydev.nvim",
+            ft = "lua", -- only load on lua files
+            opts = {
+                library = {
+                    -- See the configuration section for more details
+                    -- Load luvit types when the `vim.uv` word is found
+                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                },
+            },
+        }
+    },
+    config = function()
+        require("mason").setup()
+        require("mason-lspconfig").setup({
+            automatic_enable = true,
+            ensure_installed = { 'angularls', 'html', 'ts_ls', 'lua_ls' }
+        })
 
-            mason_lspconfig.setup {
-                automatic_installation = true,
-                ensure_installed = { 'angularls', 'html', 'ts_ls', 'lua_ls' }
-            }
+        vim.lsp.config('lua_ls', {
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = 'LuaJIT',
+                    },
+                    diagnostics = {
+                        globals = {
+                            'vim',
+                            'require',
+                        },
+                    },
+                },
+            },
+        })
 
-            local lspconfig = require("lspconfig")
+        vim.keymap.set("n", "<leader>q", function() vim.lsp.buf.format() end)
 
-            -- mason_lspconfig.setup_handlers {
-            --     function(server)
-            --         lspconfig[server].setup {}
-            --     end
-            -- }
-
-            -- lspconfig.lua_ls.setup {}
-            -- lspconfig.angularls.setup {}
-            -- lspconfig.ts_ls.setup {}
-            -- lspconfig.html.setup {}
-            -- lspconfig.tailwindcss.setup {}
-
-            vim.keymap.set("n", "<leader>q", function() vim.lsp.buf.format() end)
-        end,
-    }
+        -- crazy hack to trigger lsp to start servers again
+        vim.api.nvim_exec_autocmds("FileType", {})
+    end
 }
