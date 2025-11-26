@@ -2,7 +2,7 @@ require("config.lazy")
 require("config.remap")
 
 vim.o.background = "dark"
-vim.cmd([[ colorscheme ashen ]])
+vim.cmd([[ colorscheme nordic ]])
 
 vim.cmd('hi NormalNC guibg=NONE ctermbg=NONE')
 vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
