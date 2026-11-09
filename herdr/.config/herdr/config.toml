@@ -1,0 +1,31 @@
+onboarding = false
+
+[theme]
+name = "catppuccin"
+auto_switch = false
+
+[keys]
+prefix = "ctrl+s"
+
+# Like ctrl-w s / ctrl-w v (prefix+v is already the default)
+split_horizontal = "prefix+s"
+settings = "prefix+comma"
+
+# Like ctrl-w p: jump to the previous pane
+last_pane = "prefix+p"
+
+# Shift+h/l for tabs, shift+j/k for workspaces
+previous_tab = "prefix+shift+h"
+next_tab = "prefix+shift+l"
+next_workspace = "prefix+shift+j"
+previous_workspace = "prefix+shift+k"
+
+# prefix+w: j/k, J/K or arrows switch workspace; ctrl+j/k move panes up/down
+navigate_workspace_up = ["k", "shift+k", "up"]
+navigate_workspace_down = ["j", "shift+j", "down"]
+navigate_pane_up = "ctrl+k"
+navigate_pane_down = "ctrl+j"
+
+# Move straight between agents
+next_agent = "prefix+a"
+previous_agent = "prefix+shift+a"

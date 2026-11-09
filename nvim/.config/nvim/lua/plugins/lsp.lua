@@ -53,7 +53,7 @@ return
         vim.lsp.config("roslyn_ls", {
             cmd = {
                 "dotnet",
-                "/home/imevinle/.local/share/nvim/mason/packages/Microsoft.CodeAnalysis.LanguageServer.linux-x64.5.3.0-2.25575.7/content/LanguageServer/linux-x64/Microsoft.CodeAnalysis.LanguageServer.dll",
+                vim.fn.stdpath("data") .. "/mason/packages/Microsoft.CodeAnalysis.LanguageServer.linux-x64.5.3.0-2.25575.7/content/LanguageServer/linux-x64/Microsoft.CodeAnalysis.LanguageServer.dll",
                 "--logLevel", "Information", "--extensionLogDirectory", "/tmp/roslyn_ls/logs", "--stdio"
             }
         }
